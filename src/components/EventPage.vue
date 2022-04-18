@@ -141,7 +141,6 @@ export default {
         this.errors = error.response.data.errors
         console.log("Errors= " + this.errors)
       })
-      location.reload()
     }
   },
   mounted () {
@@ -157,6 +156,7 @@ export default {
         this.formdata = data
         console.log(data)
       })
+    location.reload()
   }
 }
 </script>
