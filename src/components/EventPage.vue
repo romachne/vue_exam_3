@@ -41,6 +41,24 @@
                     :label="formdata.fields.victims.title"
                   >
                   </v-text-field>
+                  <v-text-field
+                    :disabled="this.type !== 'hurricane'"
+                    v-model="wind"
+                    label="Скорость ветра"
+                  >
+                  </v-text-field>
+                  <v-text-field
+                    :disabled="this.type !== 'acid_rain'"
+                    v-model="acid"
+                    label="Сила кислоты"
+                  >
+                  </v-text-field>
+                  <v-text-field
+                    :disabled="this.type !== 'earthquake'"
+                    v-model="earth"
+                    label="Амплитуда землетрясения"
+                  >
+                  </v-text-field>
                 </v-form>
               </v-container>
             </v-card-text>
@@ -73,9 +91,12 @@
             >
               <v-card-title>{{event.type}}</v-card-title>
               <v-card-text>
-                <p>{{event.date}}</p>
-                <p>{{event.victims}}</p>
-                <p>{{event.acid_power}}</p>
+                <p>Дата {{event.date}}</p>
+                <p>Жертвы {{event.victims}}</p>
+                <p>Мощность
+                  {{event.acid_power}}
+                  {{event.earthquake_power}}
+                  {{event.wind_speed}}</p>
               </v-card-text>
             </v-card>
           </v-col>
@@ -99,18 +120,28 @@ export default {
       dialog: '',
       victims: '',
       type: '',
-      picker: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+      picker: '',
+      wind: '',
+      acid: '',
+      earth: ''
     }
   },
   methods: {
     submitForm() {
-      let formdata = { id: 141, type: this.type, date: this.picker, victims: this.victims, wind_speed: '3'}
+      let formdata = { id: '', type: this.type, date: this.picker, victims: this.victims}
+      if (this.type === 'earthquake') {
+        formdata.earthquake_power = this.earth
+      } else if (this.type === 'acid_rain') {
+        formdata.acid_power = this.acid
+      } else {
+        formdata.wind_speed = this.wind
+      }
       console.log(formdata)
       axios.post('https://demo-api.vsdev.space/api/elonus/events', formdata).catch(error => {
         this.errors = error.response.data.errors
         console.log("Errors= " + this.errors)
       })
-      // this.data.push(formdata)
+      location.reload()
     }
   },
   mounted () {
