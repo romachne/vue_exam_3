@@ -153,7 +153,6 @@ export default {
       .then(data => {
         this.formdata = data
       })
-    location.reload()
   }
 }
 </script>
