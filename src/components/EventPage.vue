@@ -136,7 +136,6 @@ export default {
       } else {
         formdata.wind_speed = this.wind
       }
-      console.log(formdata)
       axios.post('https://demo-api.vsdev.space/api/elonus/events', formdata).catch(error => {
         this.errors = error.response.data.errors
         console.log("Errors= " + this.errors)
@@ -148,13 +147,11 @@ export default {
       .then(response => response.json())
       .then(data => {
         this.data = data
-        console.log(data)
       });
     fetch("https://demo-api.vsdev.space/api/elonus/events/form")
       .then(response => response.json())
       .then(data => {
         this.formdata = data
-        console.log(data)
       })
     location.reload()
   }
