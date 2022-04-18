@@ -1,41 +1,26 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      flat
-    >
-      <v-container class="py-0 fill-height">
-        <v-toolbar-title>Илонус</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-toolbar-title>О нас</v-toolbar-title>
-      </v-container>
-    </v-app-bar>
+    <header-bar />
     <v-main>
       <v-layout row>
-        <v-col cols="4" md="2">
-          <router-link to="/"><v-btn text>Главная</v-btn></router-link><br>
-          <router-link to="/about"><v-btn text>О нас</v-btn></router-link><br>
-          <router-link to="/gallery"><v-btn text>Галерея</v-btn></router-link>
-          <v-card>
-            Зарегистрировано погодных событий:
-          </v-card>
-        </v-col>
+        <nav-bar />
         <v-col cols="20" md="10">
           <p>
             {{data.text}}
           </p>
         </v-col>
       </v-layout>
-
-
     </v-main>
   </v-app>
 
 </template>
 
 <script>
+import NavBar from "@/components/NavBar";
+import HeaderBar from "@/components/HeaderBar";
 export default {
   name: "AboutPage",
+  components: {HeaderBar, NavBar},
   data () {
     return {
       data: []
